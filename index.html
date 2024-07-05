@@ -133,11 +133,24 @@
                 <div class="subtitle">Bankim Chandra</div>
             </h5>
             <div class="icon">
-                <i class="bi bi-music-note-beamed"></i>
+                <i class="bi shuffle bi-music-note-beamed">next</i>
                 <i class="bi bi-skip-start-fill"></i>
                 <i class="bi bi-play-fill"></i>
                 <i class="bi bi-skip-end-fill"></i>
-                <i class="bi bi-cloud-arrow-down-fill"></i>
+                <i class="bi bi-cloud-arrow-down-fill" id="download_music"></i>
+            </div>
+            <span id="currentStart">0:00</span>
+            <div class="bar">
+                <input type="range" min="0" max="100" id="seek">
+                <div class="bar2" id="bar2"></div>
+                <div class="dot"></div>
+            </div>
+            <span id="currentEnd">0:30</span>
+            <div class="vol">
+                <i class="bi bi-volume-down-fill" id="vol_icon"></i>
+                <input type="range" min="0" max="100" id="vol">
+                <div class="vol_bar"></div>
+                <div class="dot" id="vol_dot"></div>
             </div>
         </div>
     </header>
