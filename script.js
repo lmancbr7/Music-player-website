@@ -103,14 +103,41 @@ const songs = [
         id: '20',
         songName: ` Dunny 82K <br><div class = "subtitle">Ap Dhillon, Gurinder Gill, Shinda Kahlon</div>`,
         poster: "img/20.jpg"
-    },
-    {
-        id: '20',
-        songName: ` Dunny 82K <br><div class = "subtitle">Ap Dhillon, Gurinder Gill, Shinda Kahlon</div>`,
-        poster: "img/20.jpg"
     }
 ]
 
+Array.from(document.getElementsByClassName('songItem')).forEach((e, i) => {
+    e.getElementsByTagName('img')[0].src = songs[i].poster;
+    e.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
+})
+
+let masterPlay = document.getElementById('masterPlay');
+let wave = document.getElementById('wave');
+
+masterPlay.addEventListener('click', ()=>{
+    if (music.paused || music.currentTime <= 0){
+        music.play();
+        wave.classList.add('active1');
+        masterPlay.classList.remove('bi-play-fill');
+        masterPlay.classList.add('bi-pause-fill');
+    } else {
+        music.pause();
+        wave.classList.remove('active1');
+        masterPlay.classList.add('bi-play-fill');
+        masterPlay.classList.remove('bi-pause-fill');
+    }
+});
+
+let index = 0;
+
+Array.from(document.getElementsByClassName('playListPlay')).forEach((e)=>{
+    e.addEventListener('click', (el) => {
+        index = el.target.id;
+        //console.log(index);
+        music.src = `audio/${index}.mp3`;
+        music.play();
+    })
+})
 
 let pop_song_left = document.getElementById('pop_song_left');
 let pop_song_right = document.getElementById('pop_song_right');
