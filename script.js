@@ -128,15 +128,72 @@ masterPlay.addEventListener('click', ()=>{
     }
 });
 
-let index = 0;
+const makeAllplays = () =>{
+    Array.from(document.getElementsByClassName('playListPlay')).forEach((el)=>{
+        el.classList.add('bi-play-circle-fill');
+        el.classList.remove('bi-pause-circle-fill');
+    })
+}
 
+const makeAllBackground = () =>{
+    Array.from(document.getElementsByClassName('songItem')).forEach((el)=>{
+        el.style.background = 'rgb(105, 105, 105, .0)';
+    })
+}
+
+let index = 0;
+let poster_master_play = document.getElementById('poster_master_play');
+let title = document.getElementById('title');
 Array.from(document.getElementsByClassName('playListPlay')).forEach((e)=>{
     e.addEventListener('click', (el) => {
         index = el.target.id;
         //console.log(index);
         music.src = `audio/${index}.mp3`;
+        poster_master_play.src = `img/${index}.jpg`;
         music.play();
-    })
+        masterPlay.classList.remove('bi-play-fill');
+        masterPlay.classList.add('bi-pause-fill');
+
+        let songTitles = songs.filter((els) =>{
+            return els.id == index;
+        });
+
+        songTitles.forEach(elss =>{
+            let { songName } = elss;
+            title.innerHTML = songName;
+        });
+
+        makeAllBackground();
+        Array.from(document.getElementsByClassName('songItem'))[index - 1].style.background = "rgb(105, 105, 105, .1)";
+        makeAllplays();
+        el.target.classList.remove('bi-play-circle-fill');
+        el.target.classList.add('bi-pause-circle-fill');
+        wave.classList.add('active1');
+    });
+});
+
+let currentStart = document.getElementById('currentstart');
+let currentEnd = document.getElementById('currentEnd');
+
+music.addEventListener('timeupdate', () => {
+    let music_curr = music.currentTime;
+    let music_dur = music.duration;
+    
+    let min1 = Math.floor(music_dur / 60);
+    let sec1 = Math.floor(music_dur % 60);
+
+    // console.log(min1);
+    if (sec1 < 10) {
+        sec1 = `0${sec1}`;
+    }
+    currentEnd.innerText = `${min1}:${sec1}`;
+
+    let min2 = Math.floor(music_curr / 60);
+    let sec2 = Math.floor(music_curr % 60);
+    if (sec2 < 10) {
+        sec2 = `0${sec2}`;
+    }
+    currentStart.innerText = `${min2}:${sec2}`;
 })
 
 let pop_song_left = document.getElementById('pop_song_left');
